@@ -1,0 +1,3 @@
+# view AndroidManifest.xml #generated:8
+-keep class co.za.datasolve.phonegapbase.PhoneGapBase { <init>(...); }
+

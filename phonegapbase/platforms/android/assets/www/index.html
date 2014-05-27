@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <title>Hello World</title>
+    </head>
+    <body onload="onDeviceReady()">
+       <div id="testdiv">
+            <h1><b>Just another app</b></h1><br/>
+            <h3 id="device_time"></h3><br/>
+            <h4 id="device_info"></h4>
+            <div id="accel_x"></div><div id="accel_y"></div><div id="accel_z"></div>
+            <table>
+	            <tr>
+		            <td><input type="text" placeholder="User name" id="username" ></td>
+		            <td><input type="password" id="password" placeholder="Password"></td>
+	            </tr>
+            </table>
+            <button onclick="onSubmitButton()">Submit</button>
+            <!-- Does not really work -->
+            <button onclick="checkConnection()">Check connection</button>
+            <button onclick="basicAlert()">Basic alert</button>
+            <button onclick="confirmDialog()">Confirm Dialog</button>
+            <button onclick="beepAlert()">Beep alert</button>
+            <button onclick="vibrateAlert()">Vibrate alert</button>
+            <button onclick="accelObject()">Accel object</button>
+            <button onclick="startAccelWatcher()">Start accel watcher</button>
+            <button onclick="stopAccelWatcher()">Stop accel watcher</button>
+            
+        </div>
+        <style>
+		    .green{
+		        background:#0000FF;
+		        height: 300px;
+	        }
+	        button{
+	        	width: 50%;
+	        	height: 50px;
+	        	margin-left: 50px;
+	        	margin-right: 50px;
+	        	margin-top: 20px;
+	        	margin-bottom: 20px;
+	        	background-color: navy;
+	        	color: white;
+	        }
+	        body{
+	        	background-color: silver;
+	        }
+	        h3{
+	        	margin-left: 20px;
+	        	margin-bottom: 10px;
+	        }
+	        h4{
+	        	margin: 20px;
+	        	background-color: teal;
+	        	color: white;
+	        	padding: 10px;
+	        }
+        </style>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript">
+            //app.initialize();
+            document.addEventListener("deviceready", onDeviceReady, false);
+            
+            // Add event listeners to page
+            function onDeviceReady() {
+            	currentDeviceTime();
+            	currentDeviceInformation();
+            	
+            	document.addEventListener("menubutton", onMenuButton, false);
+            	// Uncomment to override back button
+            	// document.addEventListener("backbutton", onBackPressed, false);
+            	document.addEventListener("resume", onResume, false);
+            	document.addEventListener("online", isOnline, false);
+            	document.addEventListener("offline", isOffline, false);
+            	
+            	// Android device only
+            	document.addEventListener("searchbutton", onSearchButton, false);
+            	
+            	//checkConnection();
+            }
+            
+            function onSuccessWatcher(acceleration) {
+            	var myX = document.getElementById("accel_x");
+            	var myY = document.getElementById("accel_y");
+            	var myZ = document.getElementById("accel_z");
+            	
+            	myX.innerHTML(acceleration.x);
+            	myY.innerHTML(acceleration.y);
+            	myZ.innerHTML(acceleration.z);
+            }
+            
+            function onWatcherError() {
+            	alert('Fail..');
+            }
+            
+            function startAccelWatcher() {
+				var options = {frequency: 1000};
+                watchID = navigator.accelerometer.watchAcceleration(onSuccessWatcher, onWatcherError, options);
+            }
+            
+            function stopAccelWatcher() {
+            	navigator.accelerometer.clearWatch(watchID);
+            }
+            
+            function accelObject() {
+            	navigator.accelerometer.getCurrentAcceleration(onSuccess, onError);
+            }
+            
+            function onSuccess(acceleration) {
+            	alert(
+            		'X = ' + acceleration.x + '\n' +
+            		'Y = ' + acceleration.y + '\n' + 
+            		'Z = ' + acceleration.z + '\n' +
+            		'Timestamp = ' + acceleration.timestamp + '\n'
+            	);
+            }
+            
+            function onError() {
+            	alert('Sorry, something went wrong');
+            }
+            
+            function vibrateAlert() {
+            	navigator.notification.vibrate(1000);
+            }
+            
+            function beepAlert() {
+            	navigator.notification.beep(1);
+            }
+            
+            function onConfirm(button){
+            	alert('Selected ' + button);
+            }
+            
+            function confirmDialog () {
+            	navigator.notification.confirm ( 
+            		'Alert message',
+            		onConfirm,
+            		'Alert title',
+            		'Yes, No'
+            	);
+            }
+            
+            function basicCallback () {
+            	alert ('Basic callback');
+            }
+            
+            function basicAlert() {
+            	navigator.notification.alert (
+               		'Alert message',
+               		basicCallback,
+               		'Alert title',
+               		'Done'
+               	);
+            } 
+            
+            function checkConnection() {
+            	var networkState = navigator.connection.type;
+            	
+            	setTimeout(function(){
+            	    networkState = navigator.connection.type;
+            	    alert('networkState = '+networkState);
+
+            	    var states = {};
+            	    states[Connection.UNKNOWN]  = 'Unknown connection';
+            	    states[Connection.ETHERNET] = 'Ethernet connection';
+            	    states[Connection.WIFI]     = 'WiFi connection';
+            	    states[Connection.CELL_2G]  = 'Cell 2G connection';
+            	    states[Connection.CELL_3G]  = 'Cell 3G connection';
+            	    states[Connection.CELL_4G]  = 'Cell 4G connection';
+            	    states[Connection.CELL]     = 'Cell generic connection';
+            	    states[Connection.NONE]     = 'No network connection';
+
+            	    alert('Connection type: ' + states[networkState]);
+            	 }, 500);
+            }
+            
+            function currentDeviceInformation() {
+            	var myPhoneName = device.name;
+            	var phoneGapVersion = device.phonegap;
+            	var myDevicePlatform = device.platform;
+            	var myDeviceID = device.uuid;
+            	var myDeviceOS = device.version;
+            	
+            	var myDeviceInformation = document.getElementById('device_info');
+            	myDeviceInformation.innerHTML = 'Device name: ' + myPhoneName + '<br/>' +
+            									'Device PhoneGap: ' + phoneGapVersion + '<br/>' +
+            									'Device Platform: ' + myDevicePlatform + '<br/>' + 
+            									'Device UUID: ' + myDeviceID + '<br/>' +
+            									'Device version: ' + myDeviceOS + '<br/>';
+            } 
+            
+            function currentDeviceTime() {
+				var date = new Date();
+            	
+            	var hours = date.getHours();
+            	var minutes = date.getMinutes();
+            	
+            	$("#device_time").html(hours + ":" + minutes);
+            }
+            
+            function isOffline() {
+            	alert("Device is not connected to the internet");
+            }
+            
+            function isOnline() {
+            	alert("Device is connected to the internet"); 
+            }
+            
+            // Android only function
+            // Rather create a search button for compatibility
+            function onSearchButton() {
+            	// Handle search button
+            }
+            
+            function onResume() {
+            	// Handle resume function
+            }
+            
+            function onBackPressed() {
+            	// Handle back button pressed
+            	// alert("Back button pressed");
+            }
+            
+            function onSubmitButton() {
+            	var username = document.getElementById('username').value
+            	var password = document.getElementById('password').value;
+            	
+            	var alert_part = username.concat(' ');
+            	var alert_text = alert_part.concat(password);
+            	//alert("Submit button clicked");
+            	alert(alert_text);
+            }
+            
+            function onMenuButton() {
+        		alert();
+        		
+        		//$('#testdiv').addClass('green');
+            	
+        	}
+        </script> 
+        
+    </body>
+</html>

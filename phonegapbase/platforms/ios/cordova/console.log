@@ -1,0 +1,11 @@
+2014-05-15 11:10:55.401 PhoneGapBase[2959:a0b] Multi-tasking -> Device: YES, App: YES
+2014-05-15 11:10:55.602 PhoneGapBase[2959:a0b] Unlimited access to network resources
+2014-05-15 11:10:58.229 PhoneGapBase[2959:a0b] Resetting plugins due to page load.
+2014-05-15 11:10:59.070 PhoneGapBase[2959:a0b] Finished load of: file:///Users/MacAdmin/Library/Application%20Support/iPhone%20Simulator/7.0/Applications/C7BBC998-A340-4689-8324-46F3EADF08C9/PhoneGapBase.app/www/index.html
+2014-05-15 11:13:44.581 PhoneGapBase[2959:a0b] THREAD WARNING: ['Notification'] took '48.904053' ms. Plugin should use a background thread.
+2014-05-15 11:13:46.430 PhoneGapBase[2959:a0b] *** Assertion failure in -[UIApplication runModal:](), /SourceCache/UIKit_Sim/UIKit-2903.2/UIApplication.m:9467
+2014-05-15 11:13:46.451 PhoneGapBase[2959:a0b] *** WebKit discarded an uncaught exception in the webView:runJavaScriptAlertPanelWithMessage:initiatedByFrame: delegate: <NSInternalInconsistencyException> The view passed in does not have a window.
+2014-05-15 11:13:50.746 PhoneGapBase[2959:a0b] THREAD WARNING: ['Notification'] took '10.308105' ms. Plugin should use a background thread.
+2014-05-15 11:13:52.572 PhoneGapBase[2959:a0b] *** Assertion failure in -[UIApplication runModal:](), /SourceCache/UIKit_Sim/UIKit-2903.2/UIApplication.m:9467
+2014-05-15 11:13:52.573 PhoneGapBase[2959:a0b] *** WebKit discarded an uncaught exception in the webView:runJavaScriptAlertPanelWithMessage:initiatedByFrame: delegate: <NSInternalInconsistencyException> The view passed in does not have a window.
+2014-05-15 11:13:59.131 PhoneGapBase[2959:a0b] THREAD WARNING: ['Notification'] took '70.433350' ms. Plugin should use a background thread.
