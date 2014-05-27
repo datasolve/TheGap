@@ -20,7 +20,6 @@
 /Users/MacAdmin/Documents/workspace/phonegapbase/platforms/android/assets/www/index.html \
 /Users/MacAdmin/Documents/workspace/phonegapbase/platforms/android/assets/www/js \
 /Users/MacAdmin/Documents/workspace/phonegapbase/platforms/android/assets/www/plugins \
-/Users/MacAdmin/Documents/workspace/phonegapbase/platforms/android/assets/www/css/index.css \
 /Users/MacAdmin/Documents/workspace/phonegapbase/platforms/android/assets/www/img/logo.png \
 /Users/MacAdmin/Documents/workspace/phonegapbase/platforms/android/assets/www/js/index.js \
 /Users/MacAdmin/Documents/workspace/phonegapbase/platforms/android/assets/www/js/jquery.js \
